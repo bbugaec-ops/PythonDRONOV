@@ -1,0 +1,53 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Мій кошик - Dolce Store{% endblock %}
+
+{% block content %}
+<h1 class="my-4">Ваш кошик 🛒</h1>
+
+{% if cart_items %}
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Товар</th>
+                    <th>Ціна</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.product.title }}</td> <!-- Додав .product, бо в тебе в списку об'єкт товару -->
+        <td>{{ item.product.price }} грн.</td>
+
+        <!-- ОСЬ ТУТ СТАВИМО КНОПКУ ВИДАЛЕННЯ ДЛЯ КОЖНОГО РЯДКА -->
+        <td class="text-end">
+            <a href="{% url 'remove_from_cart' item.product.pk %}" class="btn btn-sm btn-outline-danger">
+                ✖ Видалити
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+    <tr class="table-warning">
+        <td><strong>Разом:</strong></td>
+        <td colspan="2"><strong>{{ total_price }} грн.</strong></td>
+    </tr>
+</tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-between mt-4">
+        <a href="{% url 'index' %}" class="btn btn-secondary">← Продовжити покупки</a>
+        <a href="{% url 'clear_cart' %}" class="btn btn-outline-danger">🗑 Очистити кошик</a>
+
+       <a href="{% url 'checkout' %}" class="btn btn-success btn-lg">Оформити замовлення</a>
+
+    </div>
+{% else %}
+    <div class="alert alert-info py-5 text-center">
+        <h3>Ваш кошик порожній</h3>
+        <p>Схоже, ви ще нічого не вибрали.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary mt-3">Перейти до товарів</a>
+    </div>
+{% endif %}
+{% endblock %}

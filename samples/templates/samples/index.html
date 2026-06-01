@@ -1,0 +1,85 @@
+{% extends "layout/base.html" %}
+{% load static %}
+
+{% block extra_head %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="{% static 'samples/style.css' %}">
+{% endblock %}
+
+{% block title %}Dolce Store - Головна{% endblock %}
+
+{% block content %}
+    <h1 class="my-4 text-center">Наші пропозиції</h1>
+
+    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {% for bb in bbs %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-0 product-card">
+
+                    <!-- Блок з фото -->
+                    <div style="height: 280px; width: 100%; background-color: #f0f0f0; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative;">
+                        {% if bb.image %}
+                            <img src="{{ bb.image.url }}"
+                                 style="max-width: 100%; max-height: 100%; width: auto !important; height: auto !important; object-fit: contain !important; display: block;"
+                                 alt="{{ bb.title }}">
+                        {% else %}
+                            <div style="font-size: 3rem; color: #ccc;">📄</div>
+                        {% endif %}
+
+                        <!-- ПЛАШКА: Червона "ЗНИЖКА", якщо є стара ціна -->
+                        {% if bb.old_price %}
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">ЗНИЖКА</span>
+                        {% else %}
+                            <span class="badge bg-primary position-absolute top-0 start-0 m-2">Новинка</span>
+                        {% endif %}
+                    </div>
+
+                    <!-- Тіло картки -->
+                    <div class="card-body d-flex flex-column">
+                        <h3 class="h5 card-title" style="min-height: 3rem;">{{ bb.title }}</h3>
+
+                        <p class="card-text text-muted small flex-grow-1">
+                            {{ bb.content|truncatewords:10 }}
+                        </p>
+
+                        <div class="mt-auto">
+                        <div class="mb-2">
+                        {% if bb.old_price %}
+                            <!-- 1. НОВА ЦІНА (Актуальна) — перша і червона -->
+                            <span class="h6 fw-bold text-danger">{{ bb.price }} грн.</span>
+
+                            <!-- 2. СТАРА ЦІНА (Вища) — друга і перекреслена -->
+                            <span class="text-decoration-line-through text-muted ms-2" style="font-size: 0.85rem;">
+                                {{ bb.old_price }} грн.
+                            </span>
+                        {% else %}
+                            <!-- Якщо знижки немає -->
+                            <span class="h6 fw-bold text-dark">{{ bb.price }} грн.</span>
+                        {% endif %}
+                    </div>
+
+                            {% if bb.stock > 0 %}
+                                <!-- ТОВАР Є В НАЯВНОСТІ -->
+                                <a href="{% url 'add_to_cart' bb.pk %}" class="btn btn-outline-success btn-sm w-100 mb-2">
+                                    🛒 У кошик
+                                </a>
+                                <p class="text-muted text-center mb-0" style="font-size: 0.7rem;">В наявності: {{ bb.stock }} шт.</p>
+                            {% else %}
+                                <!-- ТОВАР ЗАКІНЧИВСЯ -->
+                                <a href="{% url 'order_request' bb.pk %}" class="btn btn-primary btn-sm w-100">
+                                     📦 Замовити у постачальника
+                                </a>
+                                <p class="text-danger text-center mb-0" style="font-size: 0.7rem;">Під замовлення</p>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Футер з датою публікації -->
+                    <div class="card-footer bg-transparent border-0 text-muted" style="font-size: 0.7rem;">
+                        Опубліковано: {{ bb.published|date:"d.m.Y" }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

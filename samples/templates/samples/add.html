@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати оголошення - Dolce Store</title>
+</head>
+<body>
+    <h1>Додавання нового оголошення</h1>
+
+    <!-- КРИТИЧНЕ ВИПРАВЛЕННЯ: додано enctype -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Опублікувати</button>
+    </form>
+
+    <br>
+    <a href="{% url 'index' %}">Скасувати та повернутися</a>
+</body>
+</html>

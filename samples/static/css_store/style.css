@@ -1,0 +1,49 @@
+/* 1. Налаштування всього сайту */
+body {
+    /* Додаємо відступ зверху, щоб контент не ховався під фіксовану шапку */
+    padding-top: 80px !important;
+    background-color: #f8f9fa; /* Трохи сіруватий фон, щоб білі картки виділялися */
+}
+
+/* 2. Шапка та Кошик (Виправляємо видимість) */
+.navbar {
+    z-index: 1000 !important; /* Шапка має бути високою */
+}
+
+
+.product-card {
+    height: 100%;
+    border: 1px solid #ddd !important;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-5px); /* Картка трохи піднімається */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+/* Файл: static/css_store/style.css */
+
+.main-img {
+    display: block !important;
+    width: 100% !important;
+    height: 180px !important;     /* Бажана висота */
+    max-height: 180px !important; /* ЗАБОРОНЯЄМО бути вище */
+    min-height: 180px !important; /* ЗАБОРОНЯЄМО бути нижче */
+    object-fit: cover !important; /* Обрізає краї, не сплющує */
+}
+
+/* Прибираємо обмеження з контейнера, якщо він є */
+.image-container {
+    height: 180px !important;
+    overflow: hidden !important;
+}
+
+
+.row.g-4 {
+    gap: 0 !important; /* Bootstrap сам зробить відступи через col */
+}
+
+.col {
+    padding: 15px !important;
+}

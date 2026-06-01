@@ -1,0 +1,15 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Замовлення прийнято - Dolce Store{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success py-5 text-center shadow-sm">
+        <h1 class="display-4"> 🎁 Дякуємо за замовлення!</h1>
+        <p class="lead mt-3">Ваші дані успішно збережені. Ми зв'яжемося з вами найближчим часом для уточнення деталей доставки.</p>
+        <hr class="my-4">
+        <p>Ви можете продовжувати покупки або перевірити пошту.</p>
+        <a href="{% url 'index' %}" class="btn btn-primary btn-lg mt-3">На головну</a>
+    </div>
+</div>
+{% endblock %}

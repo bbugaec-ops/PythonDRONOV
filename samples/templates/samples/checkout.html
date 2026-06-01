@@ -1,0 +1,102 @@
+{% extends "layout/base.html" %}
+{% block content %}
+<div class="row mt-5">
+    <div class="col-md-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white py-3">
+                <h4 class="mb-0">📋 Оформлення замовлення</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="post">
+                    {% csrf_token %}
+
+                    <h5 class="mb-3 text-muted">Контактні дані</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Прізвище</label>
+                            {{ form.last_name }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Ім'я</label>
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">По батькові</label>
+                            {{ form.middle_name }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Email</label>
+                            {{ form.email }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Телефон</label>
+                            {{ form.phone }}
+                        </div>
+                    </div>
+
+                    <h5 class="mb-3 text-muted">Доставка</h5>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Область</label>
+                            {{ form.region }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Місто</label>
+                            {{ form.city }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-12">
+                            <label class="form-label">Оберіть службу:</label>
+                            {{ form.delivery_service }}
+                        </div>
+                        <div class="col-md-6">
+                            <label>Спосіб доставки:</label>
+                            {{ form.delivery_type }}
+                        </div>
+                    </div>
+
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label">Вулиця</label>
+                            {{ form.street }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Номер відділення:</label>
+                            {{ form.department }}
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+                    <button type="submit" class="btn btn-success btn-lg w-100 shadow">
+                        ✅ Підтвердити замовлення
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm border-warning">
+            <div class="card-header bg-warning text-dark fw-bold">🛒 Ваш кошик</div>
+            <div class="card-body">
+                {% for item in cart_items %}
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-truncate" style="max-width: 180px;">{{ item.title }}</span>
+                    <span class="fw-bold">{{ item.price }} грн.</span>
+                </div>
+                {% endfor %}
+                <hr>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="h5 mb-0">Разом до сплати:</span>
+                    <span class="h4 text-success fw-bold mb-0">{{ total_price }} грн.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
