@@ -9,7 +9,7 @@
 {% block title %}Dolce Store - Головна{% endblock %}
 
 {% block content %}
-    <h1 class="my-4 text-center">Наші пропозиції...@</h1>
+    <h1 class="my-4 text-center">Наші пропозиції...$</h1>
 
     <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-4">
         {% for bb in bbs %}
@@ -28,7 +28,7 @@
 
                         <!-- ПЛАШКА: Червона "ЗНИЖКА", якщо є стара ціна -->
                         {% if bb.old_price %}
-                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">ЗНИЖКА - Ніякої знижки</span>
+                            <span class="badge bg-danger position-absolute top-0 start-0 m-2">ЗНИЖКА</span>
                         {% else %}
                             <span class="badge bg-primary position-absolute top-0 start-0 m-2">Новинка- є новості</span>
                         {% endif %}
